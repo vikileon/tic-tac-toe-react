@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-function Player({ initialName, symbol, isActive }) {
+function Player({ initialName, symbol, isActive, onChangeName }) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
   const inputRef = useRef(null);
@@ -28,6 +28,7 @@ function Player({ initialName, symbol, isActive }) {
   function handleEditClick() {
     if (isEditing) {
       handleSave();
+      onChangeName(symbol, playerName);
     } else {
       previousNameRef.current = playerName;
       setPlayerName("");
@@ -56,7 +57,7 @@ function Player({ initialName, symbol, isActive }) {
   }
 
   return (
-    <li className={isActive ? 'active' : undefined}>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
